@@ -1,0 +1,923 @@
+openapi: 3.0.2
+info:
+  title: FastAPI
+  version: 0.1.0
+paths:
+  /:
+    get:
+      summary: Read Root
+      operationId: read_root__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /api/v1/home:
+    get:
+      summary: Read Home
+      operationId: read_home_api_v1_home_get
+      parameters:
+        - required: true
+          schema:
+            title: Key
+            type: string
+          name: key
+          in: query
+        - required: true
+          schema:
+            title: User
+            type: string
+          name: user
+          in: query
+        - required: false
+          schema:
+            title: Page
+            type: integer
+          name: page
+          in: query
+      responses:
+        '200':
+          description: Successful Response Menampilkan List Tempat
+          content:
+            application/json:
+              schema: {}
+              examples:
+                Response Home:
+                  value: |-
+                    {
+                      "status": "success",
+                      "message": "Successfully fetched",
+                      "code": 200,
+                      "data": [
+                        {
+                          "id": 1,
+                          "name": "Clark Fields",
+                          "image_path": [
+                            {
+                              "url": "https://placekitten.com/137/461",
+                              "content_description": "strategy-bag-white"
+                            },
+                            {
+                              "url": "https://www.lorempixel.com/456/834",
+                              "content_description": "program-very-his"
+                            },
+                            {
+                              "url": "https://dummyimage.com/246x614",
+                              "content_description": "whatever-day-on"
+                            },
+                            {
+                              "url": "https://dummyimage.com/744x488",
+                              "content_description": "recognize-economy"
+                            },
+                            {
+                              "url": "https://dummyimage.com/246x614",
+                              "content_description": "whatever-day-on"
+                            }
+                          ],
+                          "location": "Lisa Meadow",
+                          "long": 100.175468,
+                          "latt": -54.108977,
+                          "description": "Director environment free station what cost read. Cold century similar start sell. Section situation product so enough term. Understand point her leader child. Writer color exist itself ability hundred none fear. Medical really employee administration future alone operation.",
+                          "open_link": "http://www.bell.net/",
+                          "review_link": "https://localhost:3000/api/v1/place/1/review",
+                          "create_review_link": "https://localhost:3000/api/v1/place/1/review/create",
+                          "is_favorite": true,
+                          "rating": 5,
+                          "top_reviews": [
+                            {
+                              "id": 1,
+                              "username": "perryalexander",
+                              "place_id": 1,
+                              "rating": 2,
+                              "desc": "Government organization high yourself we close ago.",
+                              "date": "2021-04-04",
+                              "link": "https://localhost:3000/api/v1/place/1/review"
+                            },
+                            {
+                              "id": 2,
+                              "username": "zbrown",
+                              "place_id": 1,
+                              "rating": 4,
+                              "desc": "Recent program car also strong defense increase.",
+                              "date": "2021-03-02",
+                              "link": "https://localhost:3000/api/v1/place/1/review"
+                            },
+                            {
+                              "id": 3,
+                              "username": "lynn80",
+                              "place_id": 1,
+                              "rating": 3,
+                              "desc": "Free stand very girl full next issue.",
+                              "date": "2021-03-09",
+                              "link": "https://localhost:3000/api/v1/place/1/review"
+                            },
+                            {
+                              "id": 4,
+                              "username": "woodsthomas",
+                              "place_id": 1,
+                              "rating": 4,
+                              "desc": "Manager reflect right cup identify describe few film local vote must natural voice.",
+                              "date": "2021-05-15",
+                              "link": "https://localhost:3000/api/v1/place/1/review"
+                            },
+                            {
+                              "id": 5,
+                              "username": "sgriffin",
+                              "place_id": 1,
+                              "rating": 2,
+                              "desc": "Ability son yourself option name and line music if rather.",
+                              "date": "2021-04-29",
+                              "link": "https://localhost:3000/api/v1/place/1/review"
+                            }
+                          ]
+                        }
+                      ],
+                      "links": {
+                        "self": "https://localhost:3000/api/v1/home?page=1",
+                        "next": "https://localhost:3000/api/v1/home?page=2",
+                        "prev": null
+                      }
+                    }
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/wishlist:
+    get:
+      summary: Read Whistlist
+      operationId: read_whistlist_api_v1_wishlist_get
+      parameters:
+        - required: true
+          schema:
+            title: Key
+            type: string
+          name: key
+          in: query
+        - required: true
+          schema:
+            title: User
+            type: string
+          name: user
+          in: query
+        - required: false
+          schema:
+            title: Page
+            type: integer
+          name: page
+          in: query
+      responses:
+        '200':
+          description: Successful Response dengan menampilkan list tempat favorit
+          content:
+            application/json:
+              schema: {}
+              examples:
+                Response Wishlist:
+                  value: |-
+                    {
+                      "status": "success",
+                      "message": "Successfully fetched",
+                      "code": 200,
+                      "data": [
+                        {
+                          "id": 1,
+                          "name": "Clark Fields",
+                          "image_path": [
+                            {
+                              "url": "https://placekitten.com/137/461",
+                              "content_description": "strategy-bag-white"
+                            },
+                            {
+                              "url": "https://www.lorempixel.com/456/834",
+                              "content_description": "program-very-his"
+                            },
+                            {
+                              "url": "https://dummyimage.com/246x614",
+                              "content_description": "whatever-day-on"
+                            },
+                            {
+                              "url": "https://dummyimage.com/744x488",
+                              "content_description": "recognize-economy"
+                            },
+                            {
+                              "url": "https://dummyimage.com/246x614",
+                              "content_description": "whatever-day-on"
+                            }
+                          ],
+                          "location": "Lisa Meadow",
+                          "long": 100.175468,
+                          "latt": -54.108977,
+                          "description": "Director environment free station what cost read. Cold century similar start sell. Section situation product so enough term. Understand point her leader child. Writer color exist itself ability hundred none fear. Medical really employee administration future alone operation.",
+                          "open_link": "http://www.bell.net/",
+                          "review_link": "https://localhost:3000/api/v1/place/1/review",
+                          "create_review_link": "https://localhost:3000/api/v1/place/1/review/create",
+                          "is_favorite": true,
+                          "rating": 5,
+                          "top_reviews": [
+                            {
+                              "id": 1,
+                              "username": "perryalexander",
+                              "place_id": 1,
+                              "rating": 2,
+                              "desc": "Government organization high yourself we close ago.",
+                              "date": "2021-04-04",
+                              "link": "https://localhost:3000/api/v1/place/1/review"
+                            },
+                            {
+                              "id": 2,
+                              "username": "zbrown",
+                              "place_id": 1,
+                              "rating": 4,
+                              "desc": "Recent program car also strong defense increase.",
+                              "date": "2021-03-02",
+                              "link": "https://localhost:3000/api/v1/place/1/review"
+                            },
+                            {
+                              "id": 3,
+                              "username": "lynn80",
+                              "place_id": 1,
+                              "rating": 3,
+                              "desc": "Free stand very girl full next issue.",
+                              "date": "2021-03-09",
+                              "link": "https://localhost:3000/api/v1/place/1/review"
+                            },
+                            {
+                              "id": 4,
+                              "username": "woodsthomas",
+                              "place_id": 1,
+                              "rating": 4,
+                              "desc": "Manager reflect right cup identify describe few film local vote must natural voice.",
+                              "date": "2021-05-15",
+                              "link": "https://localhost:3000/api/v1/place/1/review"
+                            },
+                            {
+                              "id": 5,
+                              "username": "sgriffin",
+                              "place_id": 1,
+                              "rating": 2,
+                              "desc": "Ability son yourself option name and line music if rather.",
+                              "date": "2021-04-29",
+                              "link": "https://localhost:3000/api/v1/place/1/review"
+                            }
+                          ]
+                        }
+                      ],
+                      "links": {
+                        "self": "https://localhost:3000/api/v1/wishlist?page=1",
+                        "next": "https://localhost:3000/api/v1/wishlist?page=2",
+                        "prev": null
+                      }
+                    }
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/review:
+    get:
+      summary: Read Review
+      operationId: read_review_api_v1_review_get
+      parameters:
+        - required: true
+          schema:
+            title: Key
+            type: string
+          name: key
+          in: query
+        - required: true
+          schema:
+            title: User
+            type: string
+          name: user
+          in: query
+        - required: false
+          schema:
+            title: Page
+            type: integer
+          name: page
+          in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+              examples:
+                Response Review:
+                  value: |-
+                    {
+                      "status": "success",
+                      "message": "Successfully fetched",
+                      "code": 200,
+                      "data": [
+                        {
+                          "id": 1,
+                          "username": "john56",
+                          "place_id": 1,
+                          "rating": 2,
+                          "desc": "Data learn of support argue message daughter.",
+                          "date": "2021-01-12",
+                          "link": "https://localhost:3000/api/v1/place/1"
+                        },
+                        {
+                          "id": 2,
+                          "username": "imckee",
+                          "place_id": 2,
+                          "rating": 1,
+                          "desc": "Four south course walk factor from remember someone his east guess.",
+                          "date": "2021-02-02",
+                          "link": "https://localhost:3000/api/v1/place/2"
+                        },
+                        {
+                          "id": 3,
+                          "username": "jessicajames",
+                          "place_id": 3,
+                          "rating": 1,
+                          "desc": "Family himself near style available company design face recognize need hospital ahead fill.",
+                          "date": "2021-04-01",
+                          "link": "https://localhost:3000/api/v1/place/3"
+                        },
+                        {
+                          "id": 4,
+                          "username": "mark93",
+                          "place_id": 4,
+                          "rating": 1,
+                          "desc": "Appear writer try state by choose.",
+                          "date": "2021-01-26",
+                          "link": "https://localhost:3000/api/v1/place/4"
+                        },
+                        {
+                          "id": 5,
+                          "username": "donnapearson",
+                          "place_id": 5,
+                          "rating": 5,
+                          "desc": "While local position level exist course draw whom both father.",
+                          "date": "2021-01-17",
+                          "link": "https://localhost:3000/api/v1/place/5"
+                        }
+                      ],
+                      "links": {
+                        "self": "https://localhost:3000/api/v1/review?page=1",
+                        "next": "https://localhost:3000/api/v1/review?page=2",
+                        "prev": null
+                      }
+                    }
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/place/search:
+    post:
+      summary: Search Places
+      operationId: search_places_api_v1_place_search_post
+      parameters:
+        - required: true
+          schema:
+            title: Key
+            type: string
+          name: key
+          in: query
+        - required: true
+          schema:
+            title: User
+            type: string
+          name: user
+          in: query
+        - required: false
+          schema:
+            title: Q
+            type: string
+          name: q
+          in: query
+        - required: false
+          schema:
+            title: Page
+            type: integer
+          name: page
+          in: query
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_search_places_api_v1_place_search_post'
+        required: false
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+              examples:
+                Response Search:
+                  value: |-
+                    {
+                      "status": "success",
+                      "message": "Successfully fetched",
+                      "code": 200,
+                      "data": [
+                        {
+                          "id": 1,
+                          "name": "Clark Fields",
+                          "image_path": [
+                            {
+                              "url": "https://placekitten.com/137/461",
+                              "content_description": "strategy-bag-white"
+                            },
+                            {
+                              "url": "https://www.lorempixel.com/456/834",
+                              "content_description": "program-very-his"
+                            },
+                            {
+                              "url": "https://dummyimage.com/246x614",
+                              "content_description": "whatever-day-on"
+                            },
+                            {
+                              "url": "https://dummyimage.com/744x488",
+                              "content_description": "recognize-economy"
+                            },
+                            {
+                              "url": "https://dummyimage.com/246x614",
+                              "content_description": "whatever-day-on"
+                            }
+                          ],
+                          "location": "Lisa Meadow",
+                          "long": 100.175468,
+                          "latt": -54.108977,
+                          "description": "Director environment free station what cost read. Cold century similar start sell. Section situation product so enough term. Understand point her leader child. Writer color exist itself ability hundred none fear. Medical really employee administration future alone operation.",
+                          "open_link": "http://www.bell.net/",
+                          "review_link": "https://localhost:3000/api/v1/place/1/review",
+                          "create_review_link": "https://localhost:3000/api/v1/place/1/review/create",
+                          "is_favorite": true,
+                          "rating": 5,
+                          "top_reviews": [
+                            {
+                              "id": 1,
+                              "username": "perryalexander",
+                              "place_id": 1,
+                              "rating": 2,
+                              "desc": "Government organization high yourself we close ago.",
+                              "date": "2021-04-04",
+                              "link": "https://localhost:3000/api/v1/place/1/review"
+                            },
+                            {
+                              "id": 2,
+                              "username": "zbrown",
+                              "place_id": 1,
+                              "rating": 4,
+                              "desc": "Recent program car also strong defense increase.",
+                              "date": "2021-03-02",
+                              "link": "https://localhost:3000/api/v1/place/1/review"
+                            },
+                            {
+                              "id": 3,
+                              "username": "lynn80",
+                              "place_id": 1,
+                              "rating": 3,
+                              "desc": "Free stand very girl full next issue.",
+                              "date": "2021-03-09",
+                              "link": "https://localhost:3000/api/v1/place/1/review"
+                            },
+                            {
+                              "id": 4,
+                              "username": "woodsthomas",
+                              "place_id": 1,
+                              "rating": 4,
+                              "desc": "Manager reflect right cup identify describe few film local vote must natural voice.",
+                              "date": "2021-05-15",
+                              "link": "https://localhost:3000/api/v1/place/1/review"
+                            },
+                            {
+                              "id": 5,
+                              "username": "sgriffin",
+                              "place_id": 1,
+                              "rating": 2,
+                              "desc": "Ability son yourself option name and line music if rather.",
+                              "date": "2021-04-29",
+                              "link": "https://localhost:3000/api/v1/place/1/review"
+                            }
+                          ]
+                        }
+                      ],
+                      "links": {
+                        "self": "https://localhost:3000/api/v1/search?page=1",
+                        "next": "https://localhost:3000/api/v1/search?page=2",
+                        "prev": null
+                      }
+                    }
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  '/api/v1/place/{id}':
+    get:
+      summary: Get Place
+      operationId: get_place_api_v1_place__id__get
+      parameters:
+        - required: true
+          schema:
+            title: Id
+          name: id
+          in: path
+        - required: true
+          schema:
+            title: Key
+            type: string
+          name: key
+          in: query
+        - required: true
+          schema:
+            title: User
+            type: string
+          name: user
+          in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+              examples:
+                Response Place:
+                  value: |-
+                    {
+                      "status": "success",
+                      "message": "Successfully fetched",
+                      "code": 200,
+                      "data": {
+                        "id": 1,
+                        "name": "Simon Inlet",
+                        "image_path": [
+                          {
+                            "url": "https://www.lorempixel.com/597/27",
+                            "content_description": "give-win-billion"
+                          },
+                          {
+                            "url": "https://dummyimage.com/246x278",
+                            "content_description": "follow-argue-ask"
+                          },
+                          {
+                            "url": "https://placekitten.com/712/90",
+                            "content_description": "say-them"
+                          },
+                          {
+                            "url": "https://placeimg.com/922/199/any",
+                            "content_description": "start-ever"
+                          }
+                        ],
+                        "location": "Mullins Key",
+                        "long": 52.956712,
+                        "latt": -88.0375325,
+                        "description": "Future effect task maintain season across Mr. Gas million person. Hard agency begin gas television.",
+                        "open_link": "http://waters.net/",
+                        "review_link": "https://localhost:3000/api/v1/place/1/review",
+                        "create_review_link": "https://localhost:3000/api/v1/place/1/review/create",
+                        "is_favorite": false,
+                        "rating": 1,
+                        "top_reviews": [
+                          {
+                            "id": 1,
+                            "username": "michaeljenkins",
+                            "place_id": 1,
+                            "rating": 3,
+                            "desc": "Explain reason then board together election focus election ago character feeling.",
+                            "date": "2021-04-05",
+                            "link": "https://localhost:3000/api/v1/place/1/review"
+                          },
+                          {
+                            "id": 2,
+                            "username": "susanmurillo",
+                            "place_id": 1,
+                            "rating": 3,
+                            "desc": "Yes national letter tax under inside begin operation sing moment talk.",
+                            "date": "2021-05-12",
+                            "link": "https://localhost:3000/api/v1/place/1/review"
+                          },
+                          {
+                            "id": 3,
+                            "username": "higginstracie",
+                            "place_id": 1,
+                            "rating": 1,
+                            "desc": "Choose color and performance return soldier piece event full.",
+                            "date": "2021-02-26",
+                            "link": "https://localhost:3000/api/v1/place/1/review"
+                          },
+                          {
+                            "id": 4,
+                            "username": "jessica06",
+                            "place_id": 1,
+                            "rating": 1,
+                            "desc": "Day course against culture very yard imagine than choose morning free deal care.",
+                            "date": "2021-04-26",
+                            "link": "https://localhost:3000/api/v1/place/1/review"
+                          },
+                          {
+                            "id": 5,
+                            "username": "nicholas05",
+                            "place_id": 1,
+                            "rating": 4,
+                            "desc": "Middle Democrat suggest paper property nothing wrong within.",
+                            "date": "2021-04-01",
+                            "link": "https://localhost:3000/api/v1/place/1/review"
+                          }
+                        ]
+                      },
+                      "links": {
+                        "self": null,
+                        "next": null,
+                        "prev": null
+                      }
+                    }
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  '/api/v1/place/{id}/review':
+    get:
+      summary: Get Review Place
+      operationId: get_review_place_api_v1_place__id__review_get
+      parameters:
+        - required: true
+          schema:
+            title: Id
+          name: id
+          in: path
+        - required: true
+          schema:
+            title: Key
+            type: string
+          name: key
+          in: query
+        - required: false
+          schema:
+            title: Page
+            type: integer
+          name: page
+          in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+              examples:
+                Response Review Place:
+                  value: |-
+                    {
+
+                        "status": "success",
+                        "message": "Successfully fetched",
+                        "code": 200,
+                        "data": [
+                            {
+                                "id": 1,
+                                "username": "churchjohn",
+                                "place_id": 1,
+                                "rating": 5,
+                                "desc": "Well language student change ahead hand may rest pretty million.",
+                                "date": "2021-01-10",
+                                "link": "https://localhost:3000/api/v1/place/1"
+                            },
+                            {
+                                "id": 2,
+                                "username": "everettdavid",
+                                "place_id": 1,
+                                "rating": 1,
+                                "desc": "Carry day evidence be head drug particularly skill too.",
+                                "date": "2021-05-25",
+                                "link": "https://localhost:3000/api/v1/place/1"
+                            },
+                            {
+                                "id": 3,
+                                "username": "duncantammy",
+                                "place_id": 1,
+                                "rating": 5,
+                                "desc": "If city camera impact employee on help feel anything teach.",
+                                "date": "2021-02-23",
+                                "link": "https://localhost:3000/api/v1/place/1"
+                            },
+                            {
+                                "id": 4,
+                                "username": "paul31",
+                                "place_id": 1,
+                                "rating": 4,
+                                "desc": "Court least four various after quickly middle production.",
+                                "date": "2021-04-03",
+                                "link": "https://localhost:3000/api/v1/place/1"
+                            },
+                            {
+                                "id": 5,
+                                "username": "mmoses",
+                                "place_id": 1,
+                                "rating": 4,
+                                "desc": "Reason head my study do account beat protect.",
+                                "date": "2021-01-16",
+                                "link": "https://localhost:3000/api/v1/place/1"
+                            },
+                            {
+                                "id": 6,
+                                "username": "loliver",
+                                "place_id": 1,
+                                "rating": 2,
+                                "desc": "Herself perform worker media security analysis.",
+                                "date": "2021-03-04",
+                                "link": "https://localhost:3000/api/v1/place/1"
+                            },
+                            {
+                                "id": 7,
+                                "username": "james42",
+                                "place_id": 1,
+                                "rating": 1,
+                                "desc": "Similar turn picture ahead size as art administration defense.",
+                                "date": "2021-03-20",
+                                "link": "https://localhost:3000/api/v1/place/1"
+                            },
+                            {
+                                "id": 8,
+                                "username": "christophermadden",
+                                "place_id": 1,
+                                "rating": 4,
+                                "desc": "Explain authority attack thus almost challenge spend.",
+                                "date": "2021-01-27",
+                                "link": "https://localhost:3000/api/v1/place/1"
+                            },
+                            {
+                                "id": 9,
+                                "username": "bobbyweaver",
+                                "place_id": 1,
+                                "rating": 1,
+                                "desc": "Quite it guess us foreign wide over community appear side series magazine water.",
+                                "date": "2021-03-04",
+                                "link": "https://localhost:3000/api/v1/place/1"
+                            },
+                            {
+                                "id": 10,
+                                "username": "vpierce",
+                                "place_id": 1,
+                                "rating": 3,
+                                "desc": "Pattern item summer sport sure since country natural color read name up itself.",
+                                "date": "2021-05-04",
+                                "link": "https://localhost:3000/api/v1/place/1"
+                            },
+                            {
+                                "id": 11,
+                                "username": "luis98",
+                                "place_id": 1,
+                                "rating": 3,
+                                "desc": "Two oil management deal amount since natural step management.",
+                                "date": "2021-01-30",
+                                "link": "https://localhost:3000/api/v1/place/1"
+                            },
+                            {
+                                "id": 12,
+                                "username": "denise59",
+                                "place_id": 1,
+                                "rating": 4,
+                                "desc": "The give message prove perhaps left form.",
+                                "date": "2021-03-24",
+                                "link": "https://localhost:3000/api/v1/place/1"
+                            },
+                            {
+                                "id": 13,
+                                "username": "spencelisa",
+                                "place_id": 1,
+                                "rating": 5,
+                                "desc": "Yourself cup seek must wrong into dream our meet.",
+                                "date": "2021-01-29",
+                                "link": "https://localhost:3000/api/v1/place/1"
+                            },
+                            {
+                                "id": 14,
+                                "username": "wardtony",
+                                "place_id": 1,
+                                "rating": 5,
+                                "desc": "President world speak add campaign way factor available personal with each word.",
+                                "date": "2021-05-03",
+                                "link": "https://localhost:3000/api/v1/place/1"
+                            }
+                        ],
+                        "links": {
+                            "self": "https://localhost:3000/api/v1/place/1/review?page=1",
+                            "next": "https://localhost:3000/api/v1/place/1/review?page=2",
+                            "prev": null
+                        }
+
+                    }
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      summary: Create Review Place
+      operationId: create_review_place_api_v1_place__id__review_post
+      parameters:
+        - required: true
+          schema:
+            title: Id
+          name: id
+          in: path
+        - required: true
+          schema:
+            title: Key
+            type: string
+          name: key
+          in: query
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: >-
+                #/components/schemas/Body_create_review_place_api_v1_place__id__review_post
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPResponseSuccess'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    Body_create_review_place_api_v1_place__id__review_post:
+      title: Body_create_review_place_api_v1_place__id__review_post
+      required:
+        - user
+        - desc
+        - date
+        - rating
+      type: object
+      properties:
+        user:
+          title: User
+          type: string
+        desc:
+          title: Desc
+          type: string
+        rating:
+          title: Rating
+          type: number
+    Body_search_places_api_v1_place_search_post:
+      title: Body_search_places_api_v1_place_search_post
+      type: object
+      properties:
+        image:
+          title: Image
+          type: string
+          format: binary
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        status:
+          title: Message
+          type: string
+          example: failure
+        message:
+          title: Error Type
+          type: string
+          example: Error Message
+        code:
+          title: Code
+          type: number
+          example: 422
+        data:
+          title: Error Type
+          nullable: true
+          example: null
+    HTTPResponseSuccess:
+      title: HTTPResponseSuccess
+      type: object
+      properties:
+        status:
+          title: Message
+          type: string
+          example: success
+        message:
+          title: Error Type
+          type: string
+          example: Success Message
+        code:
+          title: Code
+          type: number
+          example: 201
+        data:
+          title: Error Type
+          nullable: true
+          example: null
