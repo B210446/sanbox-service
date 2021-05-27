@@ -126,7 +126,21 @@ async def read_review(key: str, user: str, page: Optional[int] = None):
 
 @app.post("/api/v1/search")
 async def search_places(key: str, user: str, q: Optional[str] = None, image: Optional[UploadFile] = File(None), page: Optional[int] = None):
-    return {
+    
+    if image not None:
+        return {
+        "status": "success",
+        "message": "Successfully fetched with image",
+        "code": 200,
+        "data": destinations[11:20],
+        "links": {
+            "self": "https://localhost:3000/api/v1/search?page=1",
+            "next": "https://localhost:3000/api/v1/search?page=2",
+            "prev": None
+        }
+    }
+    else:
+        return {
         "status": "success",
         "message": "Successfully fetched",
         "code": 200,
