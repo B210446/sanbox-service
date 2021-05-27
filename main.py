@@ -127,7 +127,7 @@ async def read_review(key: str, user: str, page: Optional[int] = None):
 @app.post("/api/v1/search")
 async def search_places(key: str, user: str, q: Optional[str] = None, image: Optional[UploadFile] = File(None), page: Optional[int] = None):
     
-    if image not None:
+    if image is not None:
         return {
         "status": "success",
         "message": "Successfully fetched with image",
