@@ -31,7 +31,7 @@ async def validation_exception_handler(request, exc):
          } ,
     )
 
-for i in range(1, 50):
+for i in range(1, 70):
     temp = []
     imagePath = []
     for _ in range(1, 5):
@@ -80,12 +80,15 @@ def read_root():
 
 
 @app.get("/api/v1/home")
-async def read_home(key: str, user: str, page: Optional[int] = None):
+async def read_home(key: str, user: str, page: Optional[int] = 1):
+    end = 15*page
+    start = (end-15)+1
+
     return {
         "status": "success",
         "message": "Successfully fetched",
         "code": 200,
-        "data": destinations[0:20],
+        "data": destinations[start:end],
         "links": {
             "self": "https://localhost:3000/api/v1/home?page=1",
             "next": "https://localhost:3000/api/v1/home?page=2",
@@ -95,7 +98,7 @@ async def read_home(key: str, user: str, page: Optional[int] = None):
 
 
 @app.get("/api/v1/wishlist")
-async def read_whistlist(key: str, user: str, page: Optional[int] = None):
+async def read_whistlist(key: str, user: str, page: Optional[int] = 1):
      return {
         "status": "success",
         "message": "Successfully fetched",
@@ -110,7 +113,7 @@ async def read_whistlist(key: str, user: str, page: Optional[int] = None):
 
 
 @app.get("/api/v1/review")
-async def read_review(key: str, user: str, page: Optional[int] = None):
+async def read_review(key: str, user: str, page: Optional[int] = 1):
     return{
         "status": "success",
         "message": "Successfully fetched",
@@ -125,14 +128,17 @@ async def read_review(key: str, user: str, page: Optional[int] = None):
 
 
 @app.post("/api/v1/search")
-async def search_places(key: str, user: str, q: Optional[str] = None, image: Optional[UploadFile] = File(None), page: Optional[int] = None):
+async def search_places(key: str, user: str, q: Optional[str] = None, image: Optional[UploadFile] = File(None), page: Optional[int] = 1):
     
+    end = 15*page
+    start = (end-15)+1
+
     if image is not None:
         return {
         "status": "success",
         "message": "Successfully fetched with image",
         "code": 200,
-        "data": destinations[11:20],
+        "data": destinations[start:end],
         "links": {
             "self": "https://localhost:3000/api/v1/search?page=1",
             "next": "https://localhost:3000/api/v1/search?page=2",
@@ -144,7 +150,7 @@ async def search_places(key: str, user: str, q: Optional[str] = None, image: Opt
         "status": "success",
         "message": "Successfully fetched",
         "code": 200,
-        "data": destinations[0:10],
+        "data": destinations[start:end],
         "links": {
             "self": "https://localhost:3000/api/v1/search?page=1",
             "next": "https://localhost:3000/api/v1/search?page=2",
