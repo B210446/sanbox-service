@@ -191,7 +191,7 @@ async def get_review_place(id, key: str, page: Optional[int] = None):
 
 
 @app.post("/api/v1/place/{id}/review")
-async def create_review_place(id, key: str, user: str = Form(...), desc: str = Form(...), date: str = Form(...), rating: int = Form(...), images: Optional[List[UploadFile]] = File(None), ):
+async def create_review_place(id, key: str, user: str = Form(...), desc: str = Form(...), rating: int = Form(...), images: Optional[List[UploadFile]] = File(None), ):
     if images is not None:
         return {
         "status": "success",
