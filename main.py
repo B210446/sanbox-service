@@ -6,6 +6,7 @@ from fastapi.exceptions import HTTPException
 from fastapi.openapi.utils import get_openapi
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
+from typing import List
 
 fake = Faker()
 app = FastAPI()
@@ -190,10 +191,11 @@ async def get_review_place(id, key: str, page: Optional[int] = None):
 
 
 @app.post("/api/v1/place/{id}/review")
-async def create_review_place(id, key: str, user: str = Form(...), desc: str = Form(...), date: str = Form(...), rating: float = Form(...)):
-    return {
+async def create_review_place(id, key: str, user: str = Form(...), desc: str = Form(...), date: str = Form(...), rating: int = Form(...), images: Optional[List[UploadFile]] = File(None), ):
+    if images is not None:
+        return {
         "status": "success",
-        "message": "Successfully fetched",
+        "message": "Successfully Create Data with Image",
         "code": 201,
         "data": None,
         "links": {
@@ -201,4 +203,17 @@ async def create_review_place(id, key: str, user: str = Form(...), desc: str = F
             "next": None,
             "prev": None
         }
-    }
+        }
+    else:
+        return {
+        "status": "success",
+        "message": "Successfully Create Data",
+        "code": 201,
+        "data": None,
+        "links": {
+            "self": None,
+            "next": None,
+            "prev": None
+        }
+        }
+    
