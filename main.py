@@ -7,6 +7,7 @@ from fastapi.openapi.utils import get_openapi
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import List
+import requests
 
 fake = Faker()
 app = FastAPI()
@@ -216,4 +217,229 @@ async def create_review_place(id, key: str, user: str = Form(...), desc: str = F
             "prev": None
         }
         }
+
+
+# ===========================================================================================================================
+# ================================================ Service Google ===========================================================
+# ===========================================================================================================================
+
+API_KEY = "AIzaSyDBmn1-rBVvIQU6gKIDpvqfCRJut_uVgeA"
+
+@app.get("/api/v1/google/place/nearbysearch")
+async def nearby_search(location: Optional[str] = None):
+    query = {
+        "location": location,
+        "type": "tourist_attraction",
+        "rankby": "distance",
+        "key": API_KEY
+    }
+    req = requests.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json", params=query)
+    resp = req.json()
+
+    if (resp["status"] == "OK"):
+
+        data = mappingPlaces(resp)
+        next_page_token = None
+        
+        if "next_page_token" in resp:
+            next_page_token = resp["next_page_token"]
+
+        return {
+        "status": "success",
+        "message": "Successfully fetch data",
+        "code": 201,
+        "data": data,
+        "links": {
+            "next_page_token": next_page_token
+        }
+        }
+    else:
+        return {
+        "status": "failure",
+        "message": "Request Failed",
+        "code": 422,
+        "data": None,
+        "links": {
+            "next_page_token": None
+        }
+        }
+
+
+@app.get("/api/v1/google/place/search")
+async def places_search(q: str):
+    query = {
+        "region": "id",
+        "query": q,
+        "type": "tourist_attraction",
+        "key": API_KEY
+    }
+    req = requests.get("https://maps.googleapis.com/maps/api/place/textsearch/json", params=query)
+    resp = req.json()
+
+    if (resp["status"] == "OK"):
+
+        data = mappingPlaces(resp)
+        next_page_token = None
+
+        if "next_page_token" in resp:
+            next_page_token = resp["next_page_token"]
+
+        return {
+        "status": "success",
+        "message": "Successfully fetch data",
+        "code": 201,
+        "data": data,
+        "links": {
+            "next_page_token": next_page_token
+        }
+        }
+    else:
+        return {
+        "status": "failure",
+        "message": "Request Failed",
+        "code": 422,
+        "data": None,
+        "links": {
+            "next_page_token": None
+        }
+        }
+
+@app.get("/api/v1/google/place/detail")
+async def get_google_place(place_id: str):
+    query = {
+        "place_id": place_id,
+        "key": API_KEY
+    }
+    req = requests.get("https://maps.googleapis.com/maps/api/place/details/json", params=query)
+    resp = req.json()
+
+    if (resp["status"] == "OK"):
+
+        data = mappingPlace(resp)
+
+        return {
+        "status": "success",
+        "message": "Successfully fetch data",
+        "code": 201,
+        "data": data,
+        "links": {
+            "self": None,
+            "next": None,
+            "prev": None,
+        }
+        }
+    else:
+        return {
+        "status": "failure",
+        "message": "Request Failed",
+        "code": 422,
+        "data": None,
+        "links": {
+            "self": None,
+            "next": None,
+            "prev": None
+        }
+        }
     
+def mappingPlaces(resp: dict):
+    places = []
+
+    for place in resp["results"]:
+
+        if "photos" not in place:
+            continue
+
+        poster = {
+            "url": "https://maps.googleapis.com/maps/api/place/photo?key="+API_KEY+"&maxwidth=800&photoreference="+place["photos"][0]["photo_reference"],
+            "content_description": place["name"]
+        }
+
+        location = None
+        if "vicinity" in place:
+            location = place["vicinity"]
+
+        if "formatted_address" in place:
+            location = place["formatted_address"]
+
+        data = {
+        "id": place["place_id"],
+        "name": place["name"],
+        "poster": poster,
+        "location": location,
+        "lat": place["geometry"]["location"]["lat"],
+        "lng": place["geometry"]["location"]["lng"],
+        "is_favorite":  False,
+        "rating": place["rating"],
+        }
+
+        places.append(data)
+    
+    return places
+
+
+def mappingPlace(resp: dict):
+    place = resp["result"]
+
+    photos = []
+    reviews = []
+
+    for photo in place["photos"]:
+        image = {
+        "url": "https://maps.googleapis.com/maps/api/place/photo?key="+API_KEY+"&maxwidth=800&photoreference="+photo["photo_reference"],
+        "content_description": place["name"]
+        }
+        photos.append(image)
+
+    for item in place["reviews"]:
+        review = {
+        "username": item["author_name"],
+        "place_id": place["place_id"],
+        "rating": item["rating"],
+        "desc": item["text"],
+        "date": item["time"],
+        }
+        reviews.append(review)
+
+
+    wiki = getDescriptionFromWiki(place["name"])
+
+    desc = ""
+    for item in wiki["query"]["pages"]:
+
+        if "extract" in wiki["query"]["pages"][item]:
+            desc = wiki["query"]["pages"][item]["extract"]
+
+    data = {
+    "id": place["place_id"],
+    "name": place["name"],
+    "image_path": photos,
+    "location": place["vicinity"],
+    "lat": place["geometry"]["location"]["lat"],
+    "lng": place["geometry"]["location"]["lng"],
+    "description": desc,
+    "open_link": place["website"],
+    "is_favorite":  False,
+    "rating": place["rating"],
+    "top_reviews": reviews,
+    }
+
+    return data
+
+
+def getDescriptionFromWiki(title: str):
+    query = {
+        "action": "query",
+        "format": "json",
+        "prop": "extracts",
+        "exintro": None,
+        "explaintext": None,
+        "redirects": 1,
+        "titles": title
+    }
+    req = requests.get("https://en.wikipedia.org/w/api.php", params=query)
+    resp = req.json()
+
+    return resp
+
+
+# https://search.google.com/local/reviews?placeid=ChIJaac90jeuEmsR0Evy-Wh9AQ8

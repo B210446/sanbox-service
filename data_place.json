@@ -1,0 +1,87 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Allianz Ecopark",
+            "image_path": [
+              {
+                "url": "https://placekitten.com/137/461",
+                "content_description": "strategy-bag-white"
+              },
+              {
+                "url": "https://www.lorempixel.com/456/834",
+                "content_description": "program-very-his"
+              },
+              {
+                "url": "https://dummyimage.com/246x614",
+                "content_description": "whatever-day-on"
+              },
+              {
+                "url": "https://dummyimage.com/744x488",
+                "content_description": "recognize-economy"
+              },
+              {
+                "url": "https://dummyimage.com/246x614",
+                "content_description": "whatever-day-on"
+              }
+            ],
+            "location": "Lisa Meadow",
+            "long": 100.175468,
+            "latt": -54.108977,
+            "description": "Director environment free station what cost read. Cold century similar start sell. Section situation product so enough term. Understand point her leader child. Writer color exist itself ability hundred none fear. Medical really employee administration future alone operation.",
+            "open_link": "http://www.bell.net/",
+            "review_link": "https://localhost:3000/api/v1/place/1/review",
+            "create_review_link": "https://localhost:3000/api/v1/place/1/review/create",
+            "is_favorite": true,
+            "rating": 5,
+            "top_reviews": [
+              {
+                "id": 1,
+                "username": "perryalexander",
+                "place_id": 1,
+                "rating": 2,
+                "desc": "Government organization high yourself we close ago.",
+                "date": "2021-04-04",
+                "link": "https://localhost:3000/api/v1/place/1/review"
+              },
+              {
+                "id": 2,
+                "username": "zbrown",
+                "place_id": 1,
+                "rating": 4,
+                "desc": "Recent program car also strong defense increase.",
+                "date": "2021-03-02",
+                "link": "https://localhost:3000/api/v1/place/1/review"
+              },
+              {
+                "id": 3,
+                "username": "lynn80",
+                "place_id": 1,
+                "rating": 3,
+                "desc": "Free stand very girl full next issue.",
+                "date": "2021-03-09",
+                "link": "https://localhost:3000/api/v1/place/1/review"
+              },
+              {
+                "id": 4,
+                "username": "woodsthomas",
+                "place_id": 1,
+                "rating": 4,
+                "desc": "Manager reflect right cup identify describe few film local vote must natural voice.",
+                "date": "2021-05-15",
+                "link": "https://localhost:3000/api/v1/place/1/review"
+              },
+              {
+                "id": 5,
+                "username": "sgriffin",
+                "place_id": 1,
+                "rating": 2,
+                "desc": "Ability son yourself option name and line music if rather.",
+                "date": "2021-04-29",
+                "link": "https://localhost:3000/api/v1/place/1/review"
+              }
+            ]
+        }
+
+    ]
+}
